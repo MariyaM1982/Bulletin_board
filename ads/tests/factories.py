@@ -5,6 +5,8 @@ from users.models import User
 
 
 class UserFactory(factory.django.DjangoModelFactory):
+    """Фабрика для создания пользователей."""
+
     class Meta:
         model = User
 
@@ -17,6 +19,8 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class AdFactory(factory.django.DjangoModelFactory):
+    """Фабрика для создания объявлений."""
+
     class Meta:
         model = Ad
 
@@ -27,6 +31,8 @@ class AdFactory(factory.django.DjangoModelFactory):
 
 
 class ReviewFactory(factory.django.DjangoModelFactory):
+    """Фабрика для создания отзывов."""
+
     class Meta:
         model = Review
 
