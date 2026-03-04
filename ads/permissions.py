@@ -5,9 +5,13 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
     """
     Разрешает редактирование/удаление только владельцу.
     Админ может всё.
+
+    Для остальных — только чтение.
     """
 
     def has_object_permission(self, request, view, obj):
+        """Проверяет, может ли пользователь редактировать объект."""
+
         # Все могут читать
         if request.method in permissions.SAFE_METHODS:
             return True
@@ -27,6 +31,8 @@ class IsReviewAuthorOrReadOnly(permissions.BasePermission):
     """
 
     def has_object_permission(self, request, view, obj):
+        """Проверяет, может ли пользователь редактировать объект."""
+
         if request.method in permissions.SAFE_METHODS:
             return True
 

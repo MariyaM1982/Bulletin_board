@@ -3,6 +3,7 @@ from datetime import timedelta
 from pathlib import Path
 
 import dj_database_url
+from decouple import config
 
 # === Основные настройки ===
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,16 +76,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "board_project.wsgi.application"
 
-# === База данных ===
-if os.getenv("DATABASE_URL"):
-    DATABASES = {"default": dj_database_url.config(default=os.getenv("DATABASE_URL"))}
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
+# База данных — всегда PostgreSQL
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', cast=int),
     }
+}
 
 # === Валидация паролей ===
 AUTH_PASSWORD_VALIDATORS = [
@@ -136,13 +138,13 @@ SIMPLE_JWT = {
 }
 
 # === Email ===
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "your_email@gmail.com")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "your_app_password")
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER')
 
 # === Swagger ===
 SWAGGER_SETTINGS = {
@@ -160,3 +162,5 @@ SWAGGER_SETTINGS = {
 }
 
 SWAGGER_USE_COMPAT_RENDERERS = False
+
+SECRET_KEY = config('SECRET_KEY')

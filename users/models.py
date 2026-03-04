@@ -3,7 +3,10 @@ from django.db import models
 
 
 class UserManager(BaseUserManager):
+    """Менеджер для кастомной модели пользователя."""
+
     def create_user(self, email, password=None, **extra_fields):
+        """Создает и возвращает пользователя с email и паролем."""
         if not email:
             raise ValueError("Email обязателен")
         email = self.normalize_email(email)
@@ -13,6 +16,7 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
+        """Создает и возвращает пользователя с привилегиями суперадмина."""
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("role", "admin")
@@ -21,6 +25,12 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    """Кастомная модель пользователя.
+
+    Использует email как основной идентификатор.
+    Поле username не используется.
+    """
+
     ROLE_CHOICES = (
         ("user", "Пользователь"),
         ("admin", "Администратор"),
@@ -40,4 +50,5 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ["first_name", "last_name"]
 
     def __str__(self):
+        """Возвращает email пользователя."""
         return self.email

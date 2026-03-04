@@ -6,6 +6,8 @@ from .models import User
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+    """Админка для модели User."""
+
     # Поля, отображаемые в списке пользователей
     list_display = ("email", "first_name", "last_name", "role", "is_active", "is_staff")
     list_filter = ("is_active", "is_staff", "role")
@@ -46,6 +48,7 @@ class CustomUserAdmin(UserAdmin):
 
     # Отключаем username
     def get_form(self, request, obj=None, **kwargs):
+        """Отключает поле username."""
         form = super().get_form(request, obj, **kwargs)
         if "username" in form.base_fields:
             form.base_fields.pop("username")
