@@ -1,8 +1,9 @@
 from rest_framework import viewsets
+
 from ads.serializers import UserSerializer
+
 from .models import User
-from rest_framework import serializers
-from rest_framework.permissions import IsAuthenticated
+
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()

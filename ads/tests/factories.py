@@ -1,7 +1,7 @@
 import factory
-from django.utils import timezone
-from users.models import User
+
 from ads.models import Ad, Review
+from users.models import User
 
 
 class UserFactory(factory.django.DjangoModelFactory):

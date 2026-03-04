@@ -1,9 +1,11 @@
 import pytest
-from rest_framework.test import APIClient
-from rest_framework import status
 from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APIClient
+
 from ads.models import Ad, Review
-from .factories import UserFactory, AdFactory, ReviewFactory
+
+from .factories import AdFactory, ReviewFactory, UserFactory
 
 
 @pytest.fixture

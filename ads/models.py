@@ -1,4 +1,5 @@
 from django.db import models
+
 from users.models import User
 
 
@@ -10,7 +11,7 @@ class Ad(models.Model):
         User,
         verbose_name="Автор объявления",
         on_delete=models.CASCADE,
-        related_name="ads"
+        related_name="ads",
     )
     created_at = models.DateTimeField("Дата и время создания", auto_now_add=True)
 
@@ -29,13 +30,10 @@ class Review(models.Model):
         User,
         verbose_name="Автор отзыва",
         on_delete=models.CASCADE,
-        related_name="reviews"
+        related_name="reviews",
     )
     ad = models.ForeignKey(
-        Ad,
-        verbose_name="Объявление",
-        on_delete=models.CASCADE,
-        related_name="reviews"
+        Ad, verbose_name="Объявление", on_delete=models.CASCADE, related_name="reviews"
     )
     created_at = models.DateTimeField("Дата и время создания", auto_now_add=True)
 
