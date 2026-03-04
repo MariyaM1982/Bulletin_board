@@ -6,6 +6,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
     Разрешает редактирование/удаление только владельцу.
     Админ может всё.
     """
+
     def has_object_permission(self, request, view, obj):
         # Все могут читать
         if request.method in permissions.SAFE_METHODS:
@@ -24,6 +25,7 @@ class IsReviewAuthorOrReadOnly(permissions.BasePermission):
     Позволяет редактировать/удалять только автору отзыва.
     Админ может всё.
     """
+
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
